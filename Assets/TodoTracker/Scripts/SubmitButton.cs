@@ -50,7 +50,7 @@ namespace TodoTracker
 
         public void OnClick()
         {
-            todoList.CreateTodoItem(titleInput.text, date);
+            todoList.CreateTodoItem(titleInput.text, date, true);
         }
 
         private bool IsValidDate(int month, int day, int year)

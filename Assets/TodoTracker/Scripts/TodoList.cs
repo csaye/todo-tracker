@@ -22,9 +22,9 @@ namespace TodoTracker
                     title = titleDate[0];
                     string[] dateDigits = titleDate[1].Split('/');
                     
-                    int year = int.Parse(dateDigits[0]);
-                    int month = int.Parse(dateDigits[1]);
-                    int day = int.Parse(dateDigits[2]);
+                    int month = int.Parse(dateDigits[0]);
+                    int day = int.Parse(dateDigits[1]);
+                    int year = int.Parse(dateDigits[2]);
                     date = new DateTime(year, month, day);
                 }
                 catch
@@ -33,12 +33,13 @@ namespace TodoTracker
                     continue;
                 }
 
-                CreateTodoItem(title, date);
+                CreateTodoItem(title, date, false);
             }
         }
 
-        public void CreateTodoItem(string title, DateTime date)
+        public void CreateTodoItem(string title, DateTime date, bool updateFileHandler)
         {
+            if (updateFileHandler) FileHandler.AddTodo($"{title}\\{date.ToShortDateString()}");
             GameObject todoObj = Instantiate(todoItemPrefab, transform.position, Quaternion.identity, contentTransform);
             todoObj.GetComponent<TodoItem>().Initialize(title, date);
         }

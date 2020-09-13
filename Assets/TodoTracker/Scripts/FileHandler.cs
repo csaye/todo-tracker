@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 
 namespace TodoTracker
@@ -19,21 +18,28 @@ namespace TodoTracker
             todos.Add(todo);
         }
 
-        [MenuItem("Tools/Write File")]
-        public static void WriteFile()
+        public static void RemoveTodo(string todo)
+        {
+            todos.Remove(todo);
+        }
+
+        private static void WriteFile()
         {
             StreamWriter writer = new StreamWriter(path);
             foreach (string todo in todos) writer.WriteLine(todo);
             writer.Close();
         }
 
-        [MenuItem("Tools/Read File")]
-        public static void ReadFile()
+        private static void ReadFile()
         {
             StreamReader reader = new StreamReader(path);
             todos.Clear();
-            string[] list = reader.ReadToEnd().Split('\n');
-            foreach (string todo in list) todos.Add(todo);
+            string content = reader.ReadToEnd();
+            string[] list = content.Split('\n');
+            foreach (string todo in list)
+            {
+                if (!string.IsNullOrWhiteSpace(todo)) todos.Add(todo);
+            }
             reader.Close();
         }
 
