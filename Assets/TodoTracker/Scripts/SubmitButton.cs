@@ -9,10 +9,11 @@ namespace TodoTracker
     public class SubmitButton : MonoBehaviour
     {
         [Header("References")]
-        // [SerializeField] private TMP_InputField titleField = null;
+        [SerializeField] private TMP_InputField titleInput = null;
         [SerializeField] private TMP_Dropdown monthDropdown = null;
-        [SerializeField] private TMP_InputField dayField = null;
-        [SerializeField] private TMP_InputField yearField = null;
+        [SerializeField] private TMP_InputField dayInput = null;
+        [SerializeField] private TMP_InputField yearInput = null;
+        [SerializeField] private TodoList todoList = null;
 
         private DateTime date;
 
@@ -30,11 +31,11 @@ namespace TodoTracker
 
         private bool TryGetDate()
         {
-            if (yearField.text == "" || dayField.text == "") return false;
+            if (yearInput.text == "" || dayInput.text == "") return false;
 
-            int year = int.Parse(yearField.text);
+            int year = int.Parse(yearInput.text);
             int month = monthDropdown.value + 1;
-            int day = int.Parse(dayField.text);
+            int day = int.Parse(dayInput.text);
 
             try
             {
@@ -49,7 +50,7 @@ namespace TodoTracker
 
         public void OnClick()
         {
-            
+            todoList.CreateTodoItem(titleInput.text, date);
         }
 
         private bool IsValidDate(int month, int day, int year)
