@@ -9,7 +9,7 @@ namespace TodoTracker
         [Header("References")]
         [SerializeField] private TodoList todoList = null;
 
-        private static string path = "Assets/Resources/todo.txt";
+        private static string path;
 
         private static List<string> todos = new List<string>();
 
@@ -42,9 +42,16 @@ namespace TodoTracker
             }
             reader.Close();
         }
+        
+        private void GetPath()
+        {
+            path = $"{Application.persistentDataPath}/todo.txt";
+            if (!File.Exists(path)) File.WriteAllText(path, "");
+        }
 
         private void Start()
         {
+            GetPath();
             ReadFile();
             todoList.Initialize(todos.ToArray());
         }
