@@ -13,5 +13,10 @@ namespace TodoTracker
         {
             labelField.text = $"{title} : {date.ToShortDateString()}";
         }
+
+        public void DestroyItem()
+        {
+            Destroy(gameObject);
+        }
     }
 }
